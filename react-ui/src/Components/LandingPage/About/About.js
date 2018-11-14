@@ -1,8 +1,11 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import Table, { TableBody, TableCell, TableHead, TableRow } from '@material-ui/core/Table';
-
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow  from '@material-ui/core/TableRow';
 import img1 from './1_QERgzuzphdQz4e0fNs1CFQ.gif';
 import img2 from './structure.png';
 
