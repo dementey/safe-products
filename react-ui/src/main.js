@@ -26,6 +26,7 @@ const Main = () =>
                 <Route path="/search/" component={SearchPage} />
                 <Route path="/search?:id" component={SearchForm} />
                 <Route path="/ingrecheck" component={IngreCheck} />
+                <Route path="/api"  />
                 <Route component={NotFound} />
             </Switch>
             <Footer />

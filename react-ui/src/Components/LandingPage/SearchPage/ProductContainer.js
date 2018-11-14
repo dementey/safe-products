@@ -16,10 +16,10 @@ class ProductContainer extends Component {
     componentDidMount() {//componentDidMount()	после вставки компонента в DOM	здесь можно делать асинхронные запросы, подписывать компонент на внешние события
         const nPerPage = window.innerWidth < 600 ? 15 : 50;
         if (this.props.query !== '') {
-            let url = "http://localhost:8000/api/search/" + this.props.query + '/' + this.props.pageNumber + '/' + nPerPage;
-           // console.log(url);
+            let url = "http://localhost:5000/api/search/" + this.props.query + '/' + this.props.pageNumber + '/' + nPerPage;
+            // console.log(url);
             this.props.fetchData(url);
-            let urlCount = "http://localhost:8000/api/" + this.props.query + '/count';
+            let urlCount = "http://localhost:5000/api/" + this.props.query + '/count';
             this.props.fetchCount(urlCount);
         }
     }
@@ -28,9 +28,9 @@ class ProductContainer extends Component {
     componentWillReceiveProps(nextProps) {//componentWillReceiveProps(newProps)	вызывается перед обновлением свойств, что происходит при перерисовке данного компонента его родителем
         if (this.props.query !== nextProps.query || this.props.pageNumber !== nextProps.pageNumber) {
             let nPerPage = window.innerWidth < 600 ? 15 : 50;
-            let url = "http://localhost:8000/api/search/" + nextProps.query + '/' + nextProps.pageNumber + '/' + nPerPage;
+            let url = "http://localhost:5000/api/search/" + nextProps.query + '/' + nextProps.pageNumber + '/' + nPerPage;
             this.props.fetchData(url);
-            let urlCount = "http://localhost:8000/api/" + nextProps.query + '/count';
+            let urlCount = "http://localhost:5000/api/" + nextProps.query + '/count';
             this.props.fetchCount(urlCount);
         }
     }
@@ -45,7 +45,7 @@ class ProductContainer extends Component {
                     isLoading={this.props.isLoading}
                     totalCount={this.props.count}
 
-                    //handleScroll={this.handleScroll}
+                //handleScroll={this.handleScroll}
                 />
 
                 <div className='inform-panel'>

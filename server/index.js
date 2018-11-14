@@ -1,33 +1,63 @@
 const express = require('express');
-const app = express();
-var bodyParser = require('body-parser');
+const path = require('path');
+const products = require('./app/controllers/products.controller')
+const bodyParser = require('body-parser');
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
 
-var port = process.env.PORT || 8000;
+const PORT = process.env.PORT || 5000;
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({extended: true}))
+// Multi-process to utilize all CPU cores.
+if (cluster.isMaster) {
+    console.error(`Node cluster master ${process.pid} is running`);
 
-// parse application/json
-app.use(bodyParser.json())
+    // Fork workers.
+    for (let i = 0; i < numCPUs; i++) {
+        cluster.fork();
+    }
 
-// Configuring the database
-var dbConfig = require('./config/database.config.js');
-var mongoose = require('mongoose');
+    cluster.on('exit', (worker, code, signal) => {
+        console.error(`Node cluster worker ${worker.process.pid} exited: code ${code}, signal ${signal}`);
+    });
 
-mongoose.Promise = global.Promise;
+} else {
 
-mongoose.connect(dbConfig.url, { useNewUrlParser: true });
+    const app = express();
+    // parse application/x-www-form-urlencoded
+    app.use(bodyParser.urlencoded({ extended: true }))
 
-mongoose.connection.on('error', function () {
-    console.log('Could not connect to the database. Exiting now...');
-    process.exit();
-});
-mongoose.connection.once('open', function () {
-    console.log("Successfully connected to the database");
-})
+    // parse application/json
+    app.use(bodyParser.json())
 
-require('./app/routes/products.routes.js')(app);
+    // Configuring the database
+    var dbConfig = require('./config/database.config.js');
+    var mongoose = require('mongoose');
+    // Priority serve any static files.
+    //app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+    mongoose.Promise = global.Promise;
 
-app.listen(port, function() {
-    console.log("App is running on port " + port);
-});
+    mongoose.connect(dbConfig.url, { useNewUrlParser: true });
+
+    mongoose.connection.on('error', function () {
+        console.log('Could not connect to the database. Exiting now...');
+        process.exit();
+    });
+
+    mongoose.connection.once('open', function () {
+        console.log("Successfully connected to the database");
+    })
+
+    // Priority serve any static files.
+    app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
+
+    require('./app/routes/products.routes.js')(app);
+
+    app.get('*', function (request, response) {
+        response.sendFile(path.resolve(__dirname, '../react-ui/build', 'index.html'));
+    });
+
+    app.listen(PORT, function () {
+        console.error(`Node cluster worker ${process.pid}: listening on port ${PORT}`);
+    });
+
+}
