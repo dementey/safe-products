@@ -7,7 +7,7 @@ const numCPUs = require('os').cpus().length;
 
 const PORT = process.env.PORT || 5000;
 
-// Multi-process to utilize all CPU cores.
+// Multi-process to utilize all CPU cores
 if (cluster.isMaster) {
     console.error(`Node cluster master ${process.pid} is running`);
 
