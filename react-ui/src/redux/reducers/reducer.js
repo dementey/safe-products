@@ -27,10 +27,10 @@ export function items(state = [], action) {
 }
 
 
-export function updateQuery(state = '', action) {
+export function updateQuery(state = '', action) {//в разделе updateQuery state Redux хранится слово запроса
     switch (action.type) {
         case 'SEND_QUERY':
-            return action.query;
+            return action.querySymbol;
         default:
             return state;
     }

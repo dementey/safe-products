@@ -58,7 +58,7 @@ const CustomizedInputs = (props) => {
 
 CustomizedInputs.propTypes = {
     classes: PropTypes.object.isRequired,
-    onChange: PropTypes.func
+    cbOnChange: PropTypes.func
 };
 
 

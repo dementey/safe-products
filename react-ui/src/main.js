@@ -12,7 +12,7 @@ import About from './Components/LandingPage/About/About';
 import Home from './Components/LandingPage/Home/Home';
 import SearchPage from './Components/LandingPage/SearchPage/SearchPage';
 import IngreCheck from './Components/LandingPage/IngredientsCheck/IngredientsCheck';
-import NotFound from './Components/LandingPage/NotFound/NotFound';
+//import NotFound from './Components/LandingPage/NotFound/NotFound';
 import SearchForm from './Components/LandingPage/Home/SearchForm/SearchForm';
 
 
@@ -27,7 +27,7 @@ const Main = () =>
                 <Route path="/search?:id" component={SearchForm} />
                 <Route path="/ingrecheck" component={IngreCheck} />
                 <Route path="/api"  />
-                <Route component={NotFound} />
+                {/*Route component={NotFound} />*/}
             </Switch>
             <Footer />
         </div>

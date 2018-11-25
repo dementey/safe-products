@@ -15,22 +15,22 @@ class ProductContainer extends Component {
 
     componentDidMount() {//componentDidMount()	после вставки компонента в DOM	здесь можно делать асинхронные запросы, подписывать компонент на внешние события
         const nPerPage = window.innerWidth < 600 ? 15 : 50;
-        if (this.props.query !== '') {
-            let url = "http://localhost:5000/api/search/" + this.props.query + '/' + this.props.pageNumber + '/' + nPerPage;
+        if (this.props.querySymbol !== '') {
+            let url = "http://localhost:5000/api/search/" + this.props.querySymbol + '/' + this.props.pageNumber + '/' + nPerPage;
             // console.log(url);
             this.props.fetchData(url);
-            let urlCount = "http://localhost:5000/api/" + this.props.query + '/count';
+            let urlCount = "http://localhost:5000/api/" + this.props.querySymbol + '/count';
             this.props.fetchCount(urlCount);
         }
     }
 
 
     componentWillReceiveProps(nextProps) {//componentWillReceiveProps(newProps)	вызывается перед обновлением свойств, что происходит при перерисовке данного компонента его родителем
-        if (this.props.query !== nextProps.query || this.props.pageNumber !== nextProps.pageNumber) {
+        if (this.props.querySymbol !== nextProps.querySymbol || this.props.pageNumber !== nextProps.pageNumber) {
             let nPerPage = window.innerWidth < 600 ? 15 : 50;
-            let url = "http://localhost:5000/api/search/" + nextProps.query + '/' + nextProps.pageNumber + '/' + nPerPage;
+            let url = "http://localhost:5000/api/search/" + nextProps.querySymbol + '/' + nextProps.pageNumber + '/' + nPerPage;
             this.props.fetchData(url);
-            let urlCount = "http://localhost:5000/api/" + nextProps.query + '/count';
+            let urlCount = "http://localhost:5000/api/" + nextProps.querySymbol + '/count';
             this.props.fetchCount(urlCount);
         }
     }
@@ -39,7 +39,7 @@ class ProductContainer extends Component {
         return (
             <div>
                 <ProductPres
-                    result={this.props.query}
+                    result={this.props.querySymbol}
                     items={this.props.items}
                     hasErrored={this.props.hasErrored}
                     isLoading={this.props.isLoading}
@@ -81,7 +81,7 @@ class ProductContainer extends Component {
 
 ProductContainer.propTypes = {
     //pageNumber: PropTypes.number,
-    query: PropTypes.string,
+    querySymbol: PropTypes.string,
     items: PropTypes.array.isRequired,
     hasErrored: PropTypes.bool,
     isLoading: PropTypes.bool,
@@ -91,7 +91,7 @@ ProductContainer.propTypes = {
 function mapStateToProps(state) {
     return {
         pageNumber: state.changePage,
-        query: state.updateQuery,
+        querySymbol: state.updateQuery,
         items: state.items,
         hasErrored: state.itemsHasErrored,
         isLoading: state.itemsIsLoading,

@@ -29,7 +29,7 @@ export function itemsFetchDataSuccess(items) {//получение данных
 export function sendQuery(valueSearch) { //отправить запрос
     return {
         type: 'SEND_QUERY',
-        query: valueSearch
+        querySymbol: valueSearch
     };
 }
 

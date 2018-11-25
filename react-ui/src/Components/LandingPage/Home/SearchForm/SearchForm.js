@@ -11,7 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import '../../../css/Styles.css';
 
-class SearchForm extends React.Component { //в этом компоненте только два Props this.props.fire и this.props.dispatch
+class SearchForm extends React.Component { //в этом компоненте только два Props this.props.fire и this.props.dispatch, redux
 
     constructor(props) {
         super(props);
@@ -42,9 +42,8 @@ class SearchForm extends React.Component { //в этом компоненте т
 
     render() {
         console.log(this.props.match);
+        
         return (
-
-
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <div className='search-form-container'>
@@ -61,9 +60,9 @@ class SearchForm extends React.Component { //в этом компоненте т
         );
     }
 }
-const mapStateToProps = function (state) {
+const mapStateToProps = function () {
     // этому компоненту ничего не нужно из хранилища Redux, необходим только для this.props.dispatch
-    return {};
+    return {};//
 };
 
 export default connect(mapStateToProps)(SearchForm);
