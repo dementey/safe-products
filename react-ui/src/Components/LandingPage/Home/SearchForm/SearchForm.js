@@ -49,13 +49,16 @@ class SearchForm extends React.Component { //в этом компоненте т
                     <div className='search-form-container'>
                         <SearchTextField cbOnChange={this.handleOnChange} />
                         <Button size="small" type='submit' color="secondary"><SearchIcon /></Button>
+
                     </div>
+
                 </form>
                 {
                     this.props.fire && this.state.fireRedirect && (
                         <Redirect to={'/search?' + this.state.val} />
                     )
                 }
+  
             </div>
         );
     }

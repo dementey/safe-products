@@ -39,7 +39,8 @@ const CustomizedInputs = (props) => {
             //required={true} //Если значение true, метка отображается по мере необходимости, и вход будет необходим.
             autoFocus={true} //Если значение true, вход будет сфокусирован во время первого монтирования
             onChange={cbOnChange}
-            //label="Введите данные"
+            //label="Введите продукт"
+            //defaultValue ="Введите данные"
             InputProps={{//Свойства, применяемые к элементу ввода
                 disableUnderline: true,//Убираем подчеркивание
                 classes: {
