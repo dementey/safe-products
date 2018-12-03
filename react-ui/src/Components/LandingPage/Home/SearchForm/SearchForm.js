@@ -41,7 +41,7 @@ class SearchForm extends React.Component { //в этом компоненте т
     }
 
     render() {
-        console.log(this.props.match);
+        //console.log(this.props.match);
         
         return (
             <div>
